@@ -136,6 +136,7 @@ img {
   align-items: flex-start;
   justify-items: start;
   font-size: 14px;
+  gap: 10px;
 }
 
 .tweet-header-info {
