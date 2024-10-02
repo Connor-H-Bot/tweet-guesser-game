@@ -1,0 +1,234 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.Game {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.main_div {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  padding: 20px;
+}
+
+.left, .right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tweet-wrap {
+  display: flex;
+  flex-direction: column;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+.tweet-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.avatar {
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  margin-right: 10px;
+}
+
+.tweet-info-counts {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.comment-count, .retweet-count, .likes-count {
+  font-size: 14px;
+}
+
+body {
+  background: #e6ecf0;
+  font-family: 'Asap', sans-serif;
+  font-family: 'Roboto', sans-serif;
+}
+
+img {
+  max-width: 48px;
+  max-height: 48px;
+}
+
+.avator {
+  border-radius: 100px;
+  width: 48px;
+  height: 48px;
+  margin-right: 15px;
+}
+
+.tweet-wrap {
+  max-width: 100%;
+  max-height: 100%;
+  background: #fff;
+  box-sizing: border-box;
+  margin: 5px;
+  border-radius: 3px;
+  padding: 30px;
+  border-bottom: 1px solid #e6ecf0;
+  border-top: 1px solid #e6ecf0;
+}
+
+.tweet-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: flex-start;
+  justify-items: start;
+  font-size: 14px;
+  gap: 10px;
+}
+
+.tweet-header-info {
+  font-weight: bold;
+  text-align: left;
+}
+
+.tweet-header-info span {
+  color: #657786;
+  font-weight: normal;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.tweet-header-info p {
+  font-weight: normal;
+  text-align: left;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: #000000;
+}
+
+.tweet-img-wrap {
+  padding-left: 60px;
+}
+
+.tweet-info-counts {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  margin-left: 65px;
+  margin-top: 1px;
+}
+
+.tweet-info-counts div {
+  display: flex;
+  color: #9c9c9c;
+  margin-right: 20px;
+}
+
+.tweet-info-counts div svg {
+  color: #657786;
+  margin-right: 10px;
+}
+
+
+.hover-outline {
+  padding: 20px;
+  border: 2px solid transparent;
+  background-color: #f0f0f0;
+  transition: all 0.  3s ease-in-out;
+}
+
+.hover-outline:hover {
+  border-color: #007BFF;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+  transform: scale(1.05); /* Optional: slightly enlarge the div */
+}
+
+.counter-container {
+  position: fixed; /* Fix the position relative to the viewport */
+  top: 20px;       /* 20px from the top */
+  left: 50%;       /* Start at the horizontal center */
+  transform: translateX(-50%); /* Center the div horizontally */
+  padding: 15px 30px;
+  background-color: #ffffff;
+  border: 2px solid #007BFF;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-family: Arial, sans-serif;
+  z-index: 1000; /* Ensure it stays on top */
+}
+
+.counter-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #007BFF;
+}
+
+.counter-buttons button {
+  padding: 8px 16px;
+  border: none;
+  background-color: #007BFF;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.counter-buttons button:hover {
+  background-color: #0056b3;
+}
