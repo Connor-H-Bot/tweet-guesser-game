@@ -11,4 +11,5 @@ navigate to /backend and run:
     pip install django-cors-headers
 
 and in the front end:
+    make sure you have a /nodemodules/ folder (it is ignored by gitignore, but the default npx nodemodules is enough)
     
