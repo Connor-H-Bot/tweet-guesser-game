@@ -13,3 +13,5 @@ navigate to /backend and run:
 and in the front end:
     make sure you have a /nodemodules/ folder (it is ignored by gitignore, but the default npx nodemodules is enough)
     
+To get a tweet combo, run this on the database:
+    SELECT * FROM random_tweets_view;
