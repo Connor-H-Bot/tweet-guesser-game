@@ -23,5 +23,6 @@ urlpatterns = [
     path('gettrumptweet/',views.random_trump_tweet, name='gettrumptweet'), 
     path('getfaketweet/',views.random_fake_tweet,name='getfaketweet'),
     path('gettweetpair/',views.get_tweet_pair,name='gettweetpair'),
-    path('submitguess/',views.submit_guess,name='submitguess')
+    path('submitguess/',views.submit_guess,name='submitguess'),
+    path('random_tweets_view/',views.random_tweets_view,name='random_tweets_view') #new view for getting two tweets at a time
 ]
