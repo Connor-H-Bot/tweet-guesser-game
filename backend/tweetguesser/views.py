@@ -43,6 +43,8 @@ def random_tweets_view(request):
             'tweet_year': row[3],
         })
 
+    random.shuffle(tweets)
+    
     return JsonResponse({'tweets': tweets})
 
 @csrf_exempt 

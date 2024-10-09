@@ -11,7 +11,7 @@ const TweetsGame = () => {
   const fetchTweets = async () => {
     try {
       setLoading(true);
-      const response = await fetch("http://127.0.0.1:8000/gettweetpair", {
+      const response = await fetch("http://127.0.0.1:8000/random_tweets_view", {
         method: "GET",
         mode: "cors", // Make sure this is set
         headers: {
@@ -22,13 +22,17 @@ const TweetsGame = () => {
       const data = await response.json();
 
       setTweet1({
-        text: data.tweets[0].content,
+        type: data.tweets[0].tweet_type,
+        text: data.tweets[0].tweet_content,
         id: data.tweets[0].id,
+        year: data.tweets[0].year,
       });
 
       setTweet2({
-        text: data.tweets[1].content,
+        type: data.tweets[1].tweet_type,
+        text: data.tweets[1].tweet_content,
         id: data.tweets[1].id,
+        year: data.tweets[1].year,
       });
 
       setLoading(false);
@@ -39,31 +43,14 @@ const TweetsGame = () => {
   };
 
   // Function to handle tweet selection (sends API call)
-  const handleTweetClick = async (tweetId) => {
-    try {
-      const data = {
-        selected_tweet_id: tweetId,
-        streak: counter,
-      };
-      const response = await fetch(`http://127.0.0.1:8000/submitguess/`, {
-        method: "POST",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-        body: JSON.stringify(data),
-      });
-      const result = await response.json();
-
-      setCounter(result.streak);
-
-      await fetchTweets();
-
-      console.log(result); // Handle the response if needed
-    } catch (error) {
-      console.error("Error sending tweet selection:", error);
+  const handleTweetClick = async (tweet) => {
+    if (tweet.type == "fake") {
+      setCounter(0);
+    } else {
+      setCounter(counter + 1);
     }
+
+    await fetchTweets();
   };
 
   // Fetch tweets on component mount
@@ -184,7 +171,7 @@ const TweetsGame = () => {
     username: "Donald J. Trump",
     verifiedBadge: "/images/twitter-verified-badge.svg",
     handle: "RealDonaldTrump",
-    date: "01/01/1980",
+    date: tweet1.year,
     body: tweet1.text,
   };
 
@@ -193,7 +180,7 @@ const TweetsGame = () => {
     username: "Donald J. Trump",
     verifiedBadge: "/images/twitter-verified-badge.svg",
     handle: "RealDonaldTrump",
-    date: "01/01/1980",
+    date: tweet2.year,
     body: tweet2.text,
   };
 
@@ -206,13 +193,13 @@ const TweetsGame = () => {
         <div className="left">
           <Tweet
             tweetData={tweetDataLeft}
-            handleClick={() => handleTweetClick(tweet1.id)}
+            handleClick={() => handleTweetClick(tweet1)}
           />
         </div>
         <div className="right">
           <Tweet
             tweetData={tweetDataRight}
-            handleClick={() => handleTweetClick(tweet2.id)}
+            handleClick={() => handleTweetClick(tweet2)}
           />
         </div>
       </div>
