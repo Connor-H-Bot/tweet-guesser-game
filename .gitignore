@@ -10,3 +10,4 @@ env.bak/
 venv.bak/
 api/__pycache__/
 project/__pycache__/
+.server_details

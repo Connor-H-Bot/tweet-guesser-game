@@ -13,6 +13,27 @@
   }
 }
 
+/* Check if the span is wrapping to a new line */
+@media (max-width: 600px) {
+
+  /* When the span is below the object */
+  .tweet-header-info object {
+    flex: 0 0 auto;
+    /* Prevent object from growing */
+  }
+
+  .tweet-header-info span {
+    margin-left: 10;
+    /* Default margin for normal situations */
+  }
+
+  /* Adjust margin-left when span wraps below the object */
+  .tweet-header-info object+span {
+    margin-left: 0;
+    /* Remove margin if span is below the object */
+  }
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -32,6 +53,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -53,11 +75,16 @@
   padding: 20px;
 }
 
-.left, .right {
+.left,
+.right {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 45%;
+  /* Make tweets smaller, each taking 45% of the container width */
+  margin: 10px;
+  /* Add some margin around each tweet */
 }
 
 .tweet-wrap {
@@ -84,20 +111,10 @@
   margin-right: 10px;
 }
 
-.tweet-info-counts {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
-
 .icon {
   width: 20px;
   height: 20px;
   margin-right: 5px;
-}
-
-.comment-count, .retweet-count, .likes-count {
-  font-size: 14px;
 }
 
 body {
@@ -156,7 +173,8 @@ img {
   text-align: left;
   margin-top: 5px;
   margin-bottom: 5px;
-  color: #000000;
+  color: #000000 !important;
+  /* Force it to black */
 }
 
 .tweet-img-wrap {
@@ -186,20 +204,25 @@ img {
   padding: 20px;
   border: 2px solid transparent;
   background-color: #f0f0f0;
-  transition: all 0.  3s ease-in-out;
+  transition: all 0. 3s ease-in-out;
 }
 
 .hover-outline:hover {
   border-color: #007BFF;
   box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
-  transform: scale(1.05); /* Optional: slightly enlarge the div */
+  transform: scale(1.05);
+  /* Optional: slightly enlarge the div */
 }
 
 .counter-container {
-  position: fixed; /* Fix the position relative to the viewport */
-  top: 20px;       /* 20px from the top */
-  left: 50%;       /* Start at the horizontal center */
-  transform: translateX(-50%); /* Center the div horizontally */
+  position: fixed;
+  /* Fix the position relative to the viewport */
+  top: 20px;
+  /* 20px from the top */
+  left: 50%;
+  /* Start at the horizontal center */
+  transform: translateX(-50%);
+  /* Center the div horizontally */
   padding: 15px 30px;
   background-color: #ffffff;
   border: 2px solid #007BFF;
@@ -209,7 +232,8 @@ img {
   align-items: center;
   gap: 15px;
   font-family: Arial, sans-serif;
-  z-index: 1000; /* Ensure it stays on top */
+  z-index: 1000;
+  /* Ensure it stays on top */
 }
 
 .counter-value {
@@ -232,3 +256,65 @@ img {
 .counter-buttons button:hover {
   background-color: #0056b3;
 }
+
+.button.unselectable.flip-card {
+  user-select: none;
+  /* Prevents text selection */
+  cursor: pointer;
+  /* Changes cursor to pointer (indicating it's clickable) */
+}
+
+.tweets-container-mobile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tweets-container-desktop {
+  display: flex;
+  justify-content: space-around;
+  /* Spread tweets evenly */
+  padding: 20px;
+  /* Add padding around the tweet container */
+}
+
+.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(0);
+  }
+
+  25% {
+    transform: translate(-5px);
+  }
+
+  50% {
+    transform: translate(5px);
+  }
+
+  75% {
+    transform: translate(-5px);
+  }
+
+  100% {
+    transform: translate(0);
+  }
+}
+
+.highlight-green {
+  background-color: lightgreen;
+  /* Light green for correct guesses */
+  transition: background-color 0.3s ease;
+  /* Smooth transition */
+}
+
+.highlight-red {
+  background-color: lightcoral;
+  /* Light red for wrong guesses */
+  transition: background-color 0.3s ease;
+  /* Smooth transition */
+}
+
