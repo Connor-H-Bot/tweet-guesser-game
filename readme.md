@@ -1,4 +1,4 @@
-# Trumpter
+# Help me! Trumpter
 
 Written for testing on mac, deployment on ubuntu server
 
