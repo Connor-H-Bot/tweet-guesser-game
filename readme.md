@@ -5,6 +5,7 @@ Written for testing on mac, deployment on ubuntu server. Once you have ssh'd int
    ```bash
     ./start_servers.sh
     ```
+2. Verify the server is live by going to the website http://40.83.206.141:3000/
 
 ## Running the Backend (macOS)
 
