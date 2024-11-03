@@ -3,6 +3,7 @@
 Written for testing on mac, deployment on ubuntu server. Once you have ssh'd into the server, from the trumpter_admin folder (default when first logged in):
 1. Run the start script
    ```bash
+   chmod +x start_servers.sh 
     ./start_servers.sh
     ```
 2. Verify the server is live by going to the website http://40.83.206.141:3000/
