@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useMediaQuery } from "react-responsive"; // Import react-responsive
-import "./App.css"; // Make sure to add styles here or edit existing CSS file
+import { useMediaQuery } from "react-responsive";
+import "./App.css"; 
 
 const TweetsGame = () => {
   const [tweet1, setTweet1] = useState(null);
@@ -10,17 +10,21 @@ const TweetsGame = () => {
   const [borderColor, setBorderColor] = useState("blue");
   const [isShaking, setIsShaking] = useState(false);
   const [highlightedTweet, setHighlightedTweet] = useState(null);
+  const [guessResult, setGuessResult] = useState(""); // New state for feedback
 
-  // Check if the screen width is mobile size
   const isMobile = useMediaQuery({ query: "(max-width: 600px)" });
 
-  // Function to fetch two tweets from the API
+  useEffect(() => {
+    document.title = "Trump Tweet Guesser";
+    fetchTweets();
+  }, []);
+
   const fetchTweets = async () => {
     try {
       setLoading(true);
       const response = await fetch("http://127.0.0.1:8000/random_tweets_view", {
         method: "GET",
-        mode: "cors", // Make sure this is set
+        mode: "cors",
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -32,14 +36,12 @@ const TweetsGame = () => {
         type: data.tweets[0].tweet_type,
         text: data.tweets[0].tweet_content,
         id: data.tweets[0].id,
-        year: data.tweets[0].year,
       });
 
       setTweet2({
         type: data.tweets[1].tweet_type,
         text: data.tweets[1].tweet_content,
         id: data.tweets[1].id,
-        year: data.tweets[1].year,
       });
 
       setLoading(false);
@@ -52,45 +54,40 @@ const TweetsGame = () => {
   const handleTweetClick = async (tweet) => {
     if (tweet.type === "fake") {
       setCounter(0);
-      setBorderColor("red"); // Set border to red on wrong guess
-      setIsShaking(true); // Enable shaking animation
-      setHighlightedTweet(tweet.id); // Set highlighted tweet to red
+      setBorderColor("red"); 
+      setGuessResult("Wrong!"); // Display "Wrong!"
+      setIsShaking(true); 
+      setHighlightedTweet(tweet.id);
   
-      // Reset shaking and highlighted tweet after a short duration
       setTimeout(() => {
         setIsShaking(false);
-        setHighlightedTweet(null); // Reset highlight after showing for a bit
-      }, 1000); // Keep tweet highlighted for 1 second
+        setHighlightedTweet(null);
+        setGuessResult(""); // Clear message
+      }, 1000);
     } else {
       const newCounter = counter + 1;
       setCounter(newCounter);
-      setBorderColor("green"); // Change border to green on correct guess
-      setHighlightedTweet(tweet.id); // Set highlighted tweet to green
+      setBorderColor("green");
+      setGuessResult("Correct!"); // Display "Correct!"
+      setHighlightedTweet(tweet.id);
   
-      // Reset highlighted tweet after a short duration
       setTimeout(() => {
-        setHighlightedTweet(null); // Reset highlight after showing for a bit
-      }, 1000); // Keep tweet highlighted for 1 second
+        setHighlightedTweet(null);
+        setGuessResult("");
+      }, 1000);
     }
   
-    // Introduce a delay before fetching new tweets
     setTimeout(async () => {
-      await fetchTweets(); // Fetch new tweets
-    }, 300); // Delay of 0.3 seconds
+      await fetchTweets();
+    }, 300);
   };
-  
-
-  // Fetch tweets on component mount
-  useEffect(() => {
-    fetchTweets();
-  }, []);
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
   const Tweet = ({ tweetData, handleClick }) => {
-    const isHighlighted = highlightedTweet === tweetData.id; // Check if this tweet is highlighted
+    const isHighlighted = highlightedTweet === tweetData.id;
 
     return (
       <div
@@ -122,6 +119,11 @@ const TweetsGame = () => {
                 <span>@{tweetData.handle}</span>
                 <p>{formatTweetText(tweetData.body)}</p>
               </div>
+              {isHighlighted && (
+                <div className={`guess-feedback ${tweetData.type === "fake" ? "guess-wrong" : "guess-correct"}`}>
+                  {tweetData.type === "fake" ? "❌ Wrong!" : "✅ Correct!"}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -134,7 +136,6 @@ const TweetsGame = () => {
     username: "Donald J. Trump",
     verifiedBadge: "/images/twitter-verified-badge.svg",
     handle: "RealDonaldTrump",
-    date: tweet1.year,
     body: tweet1.text,
   };
 
@@ -143,19 +144,13 @@ const TweetsGame = () => {
     username: "Donald J. Trump",
     verifiedBadge: "/images/twitter-verified-badge.svg",
     handle: "RealDonaldTrump",
-    date: tweet2.year,
     body: tweet2.text,
   };
 
   const formatTweetText = (text) => {
-    // Step 1: Replace | with ,
     let formattedText = text.replace(/\|/g, ",");
-
-    // Step 2: Replace &amp with &
     formattedText = formattedText.replace(/&amp/g, "&");
-
-    // Step 3: Format Twitter handles (underline and make blue)
-    const handleRegex = /(^|[\s\W])@(\w+)(:)?/g; // Make the colon part of the captured groups
+    const handleRegex = /(^|[\s\W])@(\w+)(:)?/g;
     formattedText = formattedText.replace(
       handleRegex,
       (match, before, handle, colon) =>
@@ -163,27 +158,23 @@ const TweetsGame = () => {
           colon || ""
         }`
     );
-
-    // Step 4: Replace \" with " and italicize text inside quotes
     const quoteRegex = /\\"(.*?)\\"/g;
     formattedText = formattedText.replace(
       quoteRegex,
       (match, p1) => `<i>"${p1}"</i>`
     );
 
-    // Return as JSX with 'dangerouslySetInnerHTML'
     return <p dangerouslySetInnerHTML={{ __html: formattedText }} />;
   };
 
-  // Use different layouts based on screen size
   return (
     <div className="Game" id="mainScreen">
       <div className="main_div center">
         <div
           className="counter-container"
           style={{
-            border: `4px solid ${borderColor}`, // Adjust thickness here
-            transition: "border-color 0.3s ease", // Smooth transition
+            border: `4px solid ${borderColor}`,
+            transition: "border-color 0.3s ease",
           }}
         >
           <span className={`counter-value ${isShaking ? "shake" : ""}`}>
@@ -191,7 +182,6 @@ const TweetsGame = () => {
           </span>
         </div>
 
-        {/* Conditional rendering based on screen size */}
         {isMobile ? (
           <div className="tweets-container-mobile">
             <Tweet
