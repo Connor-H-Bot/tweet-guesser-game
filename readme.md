@@ -21,18 +21,15 @@ Once you have ssh'd into the server, from the trumpter_admin folder (default whe
    ```bash
    cd /home/trumpter_admin/tweet_guesser_v2/tweet-guesser-game/backend/trumptweetguesser
    ```
-3. Inside settings.py make the following changes:
-     Line 21-22: (comment out default secret key, use the environment variable)
-         ```bash
+3. Inside settings.py make the following changes: 
+        Line 21-22: (comment out default secret key, use the environment variable)
 
          #SECRET_KEY = 'django-insecure-mfx5u3qr6x*a*v&1wrmfl64vw=s%e+*ksb^iju!zaxpbyvq7dq'
          SECRET_KEY = os.environ["SECRET_KEY"] # # TODO: use the env variable in production
-          ```
-      Line 25: (set debug to False, which is true by default)
-         ```bash
-   
+
+   Line 25: (set debug to False, which is true by default)
+
           DEBUG = False
-          ```
 
 ## Running the Backend (macOS)
 
