@@ -10,8 +10,8 @@ Once you have ssh'd into the server, from the trumpter_admin folder (default whe
 2. Verify the server is live by going to the website http://40.83.206.141:3000/
 
 ## Updating code from Github and updating:
-1. Pull git changes (from `/home/trumpter_admin/tweet_guesser_v2/tweet-guesser-game` base)
-    ```bash
+1. Pull git changes (from `/home/trumpter_admin/tweet_guesser_v2/tweet-guesser-game` base) (the required passphrase is 'help me!')
+    ```
     cd /home/trumpter_admin/tweet_guesser_v2/tweet-guesser-game
     git fetch origin
     git reset --hard origin/main
