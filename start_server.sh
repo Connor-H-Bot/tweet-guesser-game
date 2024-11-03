@@ -13,4 +13,5 @@ nohup python3 manage.py runserver 0.0.0.0:8000 &
 cd /home/trumpter_admin/tweet_guesser_v2/tweet-guesser-game/frontend
 
 # Start the frontend server in the background with nohup
+npm run build
 nohup serve -s build &
