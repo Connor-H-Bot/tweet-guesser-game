@@ -19,7 +19,7 @@ Once you have ssh'd into the server, from the trumpter_admin folder (default whe
     ```
 2. Navigate to the backend directory and modify the settings file (alter settings.py)
    ```bash
-   cd /home/trumpter_admin/tweet_guesser_v2/tweet-guesser-game/backend/trumptweetguesser
+   sudo vim /home/trumpter_admin/tweet_guesser_v2/tweet-guesser-game/backend/trumptweetguesser/settings.py 
    ```
 3. Inside settings.py make the following changes: 
         Line 21-22: (comment out default secret key, use the environment variable)
