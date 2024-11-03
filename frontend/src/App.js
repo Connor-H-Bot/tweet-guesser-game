@@ -22,7 +22,7 @@ const TweetsGame = () => {
   const fetchTweets = async () => {
     try {
       setLoading(true);
-      const response = await fetch("http://127.0.0.1:8000/random_tweets_view", {
+      const response = await fetch("http://40.83.206.141:8000/random_tweets_view/", {
         method: "GET",
         mode: "cors",
         headers: {
