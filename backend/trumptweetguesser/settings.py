@@ -29,7 +29,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_HEADERS = ['*']
 
-ALLOWED_HOSTS = ['localhost:3000', '40.83.206.141', '10.0.0.4:3000', 'http://40.83.206.141:3000/'] # TODO: add domain name here
+ALLOWED_HOSTS = ['localhost:3000', '40.83.206.141', '10.0.0.4:3000', 'http://40.83.206.141:3000/', '127.0.0.1'] # TODO: add domain name here
 
 # Application definition
 

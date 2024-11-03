@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import "./App.css"; 
+import "./App.css";
 
 const TweetsGame = () => {
   const [tweet1, setTweet1] = useState(null);
@@ -30,6 +30,11 @@ const TweetsGame = () => {
           "Access-Control-Allow-Origin": "*",
         },
       });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
       const data = await response.json();
 
       setTweet1({
@@ -48,17 +53,19 @@ const TweetsGame = () => {
     } catch (error) {
       console.error("Error fetching tweets:", error);
       setLoading(false);
+      setTweet1({}); // Set as empty objects to allow fallback content
+      setTweet2({});
     }
   };
 
   const handleTweetClick = async (tweet) => {
     if (tweet.type === "fake") {
       setCounter(0);
-      setBorderColor("red"); 
+      setBorderColor("red");
       setGuessResult("Wrong!"); // Display "Wrong!"
-      setIsShaking(true); 
+      setIsShaking(true);
       setHighlightedTweet(tweet.id);
-  
+
       setTimeout(() => {
         setIsShaking(false);
         setHighlightedTweet(null);
@@ -70,24 +77,28 @@ const TweetsGame = () => {
       setBorderColor("green");
       setGuessResult("Correct!"); // Display "Correct!"
       setHighlightedTweet(tweet.id);
-  
+
       setTimeout(() => {
         setHighlightedTweet(null);
         setGuessResult("");
       }, 1000);
     }
-  
+
     setTimeout(async () => {
       await fetchTweets();
     }, 300);
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>Loading tweets...</div>;
+  }
+
+  if (!tweet1 || !tweet2) {
+    return <div>Oops! Could not load tweets. Please try again later.</div>;
   }
 
   const Tweet = ({ tweetData, handleClick }) => {
-    const isHighlighted = highlightedTweet === tweetData.id;
+    const isHighlighted = highlightedTweet === tweetData?.id;
 
     return (
       <div
@@ -104,26 +115,25 @@ const TweetsGame = () => {
           <div className="flip-card-front">
             <div className="tweet-header">
               <img
-                src={tweetData.profilePic}
+                src={tweetData?.profilePic || "/images/trump_twitter_pfp.jpg"}
                 alt="Profile"
                 className="avatar"
               />
               <div className="tweet-header-info">
-                {tweetData.username}
+                {"Donald J. Trump"}
                 <object
-                  data={tweetData.verifiedBadge}
+                  data={"images/twitter-verified-badge.svg"}
                   width="15"
                   height="15"
                   style={{ verticalAlign: "middle", paddingLeft: "5px" }}
                 ></object>
-                <span>@{tweetData.handle}</span>
-                <p>{formatTweetText(tweetData.body)}</p>
+                <span>@{"realDonaldTrump"}</span>
+                <p>
+                  {tweetData?.text
+                    ? formatTweetText(tweetData.text)
+                    : "Tweet unavailable"}
+                </p>
               </div>
-              {isHighlighted && (
-                <div className={`guess-feedback ${tweetData.type === "fake" ? "guess-wrong" : "guess-correct"}`}>
-                  {tweetData.type === "fake" ? "❌ Wrong!" : "✅ Correct!"}
-                </div>
-              )}
             </div>
           </div>
         </div>
@@ -181,15 +191,51 @@ const TweetsGame = () => {
             {counter}
           </span>
         </div>
+        <div className="info-icon-container">
+          <span className="info-icon">i</span>
+          <div className="info-tooltip">
+            <p>Guess the Donald Trump tweet!</p>
+            <p>
+              Created by Connor and Pablo. Githubs:{" "}
+              <a
+                href="https://github.com/Connor-H-Bot"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Connor
+              </a>{" "}
+              and{" "}
+              <a
+                href="https://github.com/ThespDev"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Pablo
+              </a>
+              .
+            </p>
+            <p>
+              Tweets have been verified.{" "}
+              <a
+                href="https://github.com/Connor-H-Bot/trump_tweets"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Database here
+              </a>
+              .
+            </p>
+          </div>
+        </div>
 
         {isMobile ? (
           <div className="tweets-container-mobile">
             <Tweet
-              tweetData={tweetDataLeft}
+              tweetData={tweet1}
               handleClick={() => handleTweetClick(tweet1)}
             />
             <Tweet
-              tweetData={tweetDataRight}
+              tweetData={tweet2}
               handleClick={() => handleTweetClick(tweet2)}
             />
           </div>
@@ -197,13 +243,13 @@ const TweetsGame = () => {
           <div className="tweets-container-desktop">
             <div className="left">
               <Tweet
-                tweetData={tweetDataLeft}
+                tweetData={tweet1}
                 handleClick={() => handleTweetClick(tweet1)}
               />
             </div>
             <div className="right">
               <Tweet
-                tweetData={tweetDataRight}
+                tweetData={tweet2}
                 handleClick={() => handleTweetClick(tweet2)}
               />
             </div>
