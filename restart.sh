@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Kill existing backend (Django) and frontend (serve) processes
+echo "Stopping existing server processes..."
+
+# Find and kill Django process (port 8000)
+fuser -k 8000/tcp
+
+# Wait for a moment to ensure the processes are fully terminated
+sleep 2
+
+# Restart the backend server
+echo "Starting backend server..."
+cd /home/trumpter_admin/tweet_guesser_v2/tweet-guesser-game/backend
+source venv/bin/activate
+nohup python3 manage.py runserver 0.0.0.0:8000 &
+
+# Confirm successful restart
+echo "Server restarted successfully."
