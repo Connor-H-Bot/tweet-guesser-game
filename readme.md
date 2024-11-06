@@ -59,7 +59,7 @@ Once you have ssh'd into the server, from the trumpter_admin folder (default whe
     pip install django-cors-headers
     ```
 
-## Running the Frontend 
+## Running the Frontend (deprecated from server)
 
 1. Ensure you have a `node_modules` folder. This folder is ignored by `.gitignore`, but the default `npx` installation will handle it. You can also skip to step 2
 
