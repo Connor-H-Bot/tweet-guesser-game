@@ -9,6 +9,12 @@ fuser -k 8000/tcp
 # Wait for a moment to ensure the processes are fully terminated
 sleep 2
 
+# Pull the latest content from github
+echo "Pulling latest version of the backend from github."
+cd /home/trumpter_admin/tweet_guesser_v2/tweet-guesser-game
+git fetch origin
+git reset --hard origin/main
+
 # Restart the backend server
 echo "Starting backend server..."
 cd /home/trumpter_admin/tweet_guesser_v2/tweet-guesser-game/backend

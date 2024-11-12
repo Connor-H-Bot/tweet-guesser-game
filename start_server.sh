@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Pull the latest content from github
+cd /home/trumpter_admin/tweet_guesser_v2/tweet-guesser-game
+git fetch origin
+git reset --hard origin/main
+
 # Navigate to backend directory
 cd /home/trumpter_admin/tweet_guesser_v2/tweet-guesser-game/backend
 
