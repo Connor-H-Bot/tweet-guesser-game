@@ -13,7 +13,7 @@ sleep 2
 echo "Starting backend server..."
 cd /home/trumpter_admin/tweet_guesser_v2/tweet-guesser-game/backend
 source venv/bin/activate
-nohup python3 manage.py runserver 0.0.0.0:8000 &
+nohup python3 manage.py runserver 0.0.0.0:8000 > /dev/null 2>&1 &
 
 # Confirm successful restart
 echo "Server restarted successfully."

@@ -7,4 +7,4 @@ cd /home/trumpter_admin/tweet_guesser_v2/tweet-guesser-game/backend
 source venv/bin/activate
 
 # Start Django server in the background with nohup
-nohup python3 manage.py runserver 0.0.0.0:8000 &
+nohup python3 manage.py runserver 0.0.0.0:8000 > /dev/null 2>&1 &
